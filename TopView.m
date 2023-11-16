@@ -1,6 +1,6 @@
 clc; clear;
 
-%% Pseudo Nerve Diameter Measurement
+%% Pseudo Nerve Length Measurement
 
 % import nerve wrap image
 prompt = "What is the filename of the top view image with the nerve wrap?  ";
@@ -16,15 +16,15 @@ h = imdistline; % creates a draggable distance tool
 % image
 
 %% With this tool, we may have to run code section by section
-prompt = "What is the length of the pseudo nerve in pixels (enter integer value)?  ";
-length_px = input(prompt);
-scale = 8/length_px; %replace 8 w/ length of PN, keep units consistant
+length_px = getDistance(h);
+scale = 8/length_px;
+
+%% Draped Wrap Maximum Overhang Width Measurement
 imshow(img);
-h = imdistline; % now complte for max width of nerve wrap
+h = imdistline;
 
 %% Width of nerve wrap in image 
-prompt = "What is the maximum width of the nerve wrap in pixels (enter integer value)?  ";
-width_px = input(prompt);
+width_px = getDistance(h);
 width_cm = width_px * scale; %I'm assuming cm, but we can adjust units accordingly
 x = (width_cm - 4)/2; %replace 4 w known diameter of pseudonerve
 % x in the img Alex drew out
@@ -37,4 +37,3 @@ theta = asin(x/4); % replace 4 with known overhand length (will this be constant
 % ATM, this code will require user to manually drag line tool to width of
 % nerve wrap draped over PN, might want to instead do what Jared did with autmatically
 % generating the lines (except idrk how to... oops) 
-
