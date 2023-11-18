@@ -68,7 +68,6 @@ if length(x) > 20 || length(y) > 20
     end
 end
 
-%%
 %calculate distance from PN to top edge
 distanceCm = zeros(20,1);
 for i = 1:10
