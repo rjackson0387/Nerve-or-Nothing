@@ -11,7 +11,7 @@ img = imread(filename);
 % determine parameters of text to be displayed on image
 textPosX = size(img, 2)/2; % X position at the center
 textPosY = 100; % Y position at the top
-text = 'Adjust line to capture length of pseudonerve. Double click on line once complete.'; % instructions for user
+text = 'Adjust line to capture length of nerve wrap. Double click on line once complete.'; % instructions for user
 
 % add user instructions to image using parameters defined above 
 imgText = insertText(img, [textPosX textPosY], text, AnchorPoint = "Center", FontSize = 50, TextBoxColor = "k", BoxOpacity = 0.4, TextColor ="w"); 
