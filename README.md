@@ -6,3 +6,8 @@ This repository houses various versions of codes meant to measure the conformabi
 The project is primarily made up of two sub-codes: one that interprets very specific images of a cylinder cross-section, with diameters ranging anywhere between 1-5 mm (integer values only), and one the interprets very specific longitudinal images of a cylinder as seen from the top.
 
 This repository also includes an image folder with various simulated and photographed images meant to test and validate each sub-code.
+
+Authors: Aileen Nguyen, Jared Coleman, Ross Jackson, Rachel Narvaez
+University of Florida
+J. Crayton Pruitt Family Department of Biomedical Engineering
+February 13, 2024
