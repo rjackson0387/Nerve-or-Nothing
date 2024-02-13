@@ -233,4 +233,4 @@ for t = 1:len
 end
 
 % Fix ref angle vector to macth automatically detected ones
-% Maybe comoapre y-dist and wrap-y-dist values (threshold diff of 0.5 pixels)
+% Maybe compare y-dist and wrap-y-dist values (threshold diff of 0.5 pixels)
