@@ -17,9 +17,9 @@ diameter = input(prompt)/1000 ; % convert to m
 textPosX = sizeImg(2)/2; % X position at the center
 textPosY = 100; % Y position at the top
 text = 'Adjust line to capture diameter of pseudonerve. Double click on line once complete.'; % instructions for user
-
+fontSize = round(sizeImg(2)*35/2000); 
 % add user instructions to image using parameters defined above 
-imgText = insertText(img, [textPosX textPosY], text, AnchorPoint = "Center", FontSize = 40, TextBoxColor = "k", BoxOpacity = 0.4, TextColor ="w"); 
+imgText = insertText(img, [textPosX textPosY], text, AnchorPoint = "Center", FontSize = fontSize, TextBoxColor = "k", BoxOpacity = 0.4, TextColor ="w"); 
 
 % display image with interactive line ROI
 figure(1)
@@ -39,10 +39,10 @@ center = (endpoints(2, :) + endpoints(1, :)) / 2;
 
 % add user instructions to image using parameters defined above
 text = 'Find the two points from which the nerve wrap leaves the pseudo nerve. For each point, click it and press Enter.'; 
-imgText = insertText(img, [textPosX textPosY], text, AnchorPoint = "Center", FontSize = 40, TextBoxColor = "k", BoxOpacity = 0.4, TextColor ="w"); 
+imgText = insertText(img, [textPosX textPosY], text, AnchorPoint = "Center", FontSize = fontSize, TextBoxColor = "k", BoxOpacity = 0.4, TextColor ="w"); 
 
 % Code to measure the angles for a perfect circular cross-section for
-figure(2)
+figure(1)
 imshow(imgText);
 hold on
 viscircles(center, radiusPx,'EdgeColor','b');
@@ -119,10 +119,11 @@ textPosY = 100; % Y position at the top
 text = 'Adjust line to capture length of nerve wrap along the pseudonerve. Double click on line once complete.'; % instructions for user
 
 % add user instructions to image using parameters defined above 
-imgText = insertText(img, [textPosX textPosY], text, AnchorPoint = "Center", FontSize = 40, TextBoxColor = "k", BoxOpacity = 0.4, TextColor ="w"); 
+fontSize = round(sizeImg(2)*35/2000); 
+imgText = insertText(img, [textPosX textPosY], text, AnchorPoint = "Center", FontSize = fontSize, TextBoxColor = "k", BoxOpacity = 0.4, TextColor ="w"); 
 
 % display image with interactive line ROI
-figure(3)
+figure(2)
 imshow(imgText);
 
 h = imdistline; % creates a draggable distance tool 
@@ -151,15 +152,16 @@ RotMatrix = [cosd(-theta) -sind(-theta); sind(-theta) cosd(-theta)];
 P1_rot = round(RotMatrix* (P1 - (sizeImg([1 2])/2).') + ((sizeImg_rot([1 2])/2).'));
 P2_rot = round(RotMatrix* (P2 - (sizeImg([1 2])/2).') + ((sizeImg_rot([1 2])/2).'));
 
-figure(4)
+figure(2)
 imshow(img_rot);
 
 % convert to binary img
 img_gs = im2gray(img_rot);
 thresh = graythresh(img_gs); % default, faulty when there is too much background noise
+%thresh = 0.6                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
 img_bw = imbinarize(img_gs, thresh); 
 
-figure(5)
+figure(2)
 imshow(img_bw);
 
 axis on
@@ -232,10 +234,11 @@ vals.theta = thetaAvg; % in degrees
 vals.O = O; % in m
 vals.M = mass/area; % in g/m^2
 vals.G = 9.81 * vals.M * ((cosd(vals.theta/2))/(8*tand(vals.theta))) * (vals.O)^3 * 1000; % in µN-m
+vals.C = -log10(vals.G);
 
 % display values as a table
 clc; 
-values = [vals.theta, vals.O, vals.M, vals.G];
-column_label = {'Theta (degrees)', 'Overhang Length (m)', 'Mass per Unit Area(g/m^2)', 'Flexural Rigidity (µN-m)'};
+values = [vals.theta, vals.M, vals.O, vals.G, vals.C];
+column_label = {'Theta (degrees)', 'Mass per Unit Area(g/m^2)', 'Overhang Length (m)', 'Flexural Rigidity (µN-m)', 'Conformability'};
 T = array2table(values, 'VariableNames', column_label);
 disp(T);
